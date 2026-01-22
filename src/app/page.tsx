@@ -1,8 +1,13 @@
 'use client';
 
 import React from 'react';
-import { useAccount, useConnect, useDisconnect, useWriteContract, useReadContract } from 'wagmi';
-import { createPublicClient, http } from 'viem';
+import { useAccount, useConnect, useDisconnect, useSendCalls, useReadContract, useWriteContract, useSendTransaction } from 'wagmi';
+import { encodeFunctionData, concatHex } from 'viem';
+import { Attribution } from 'ox/erc8021';
+
+const DATA_SUFFIX = Attribution.toDataSuffix({
+  codes: ["YOUR-BUILDER-CODE"], // obtained from base.dev > Settings > Builder Codes
+});
 
 export default function Page() {
   const { isConnected, address } = useAccount();
@@ -79,6 +84,7 @@ export default function Page() {
   ];
 
   const { writeContract } = useWriteContract();
+  const { sendTransaction } = useSendTransaction();
   const { data: contractStreak, refetch } = useReadContract({
     address: contractAddress,
     abi,
@@ -86,14 +92,21 @@ export default function Page() {
     args: address ? [address] : undefined,
   });
 
-  const handleSayGM = () => {
-    writeContract({
-      address: contractAddress,
-      abi,
-      functionName: 'sayGM',
-    }, {
-      onSuccess: () => refetch(),
-    });
+  const handleSayGM = async () => {
+    try {
+      const data = encodeFunctionData({
+        abi,
+        functionName: 'sayGM',
+      });
+      const fullData = concatHex([data, DATA_SUFFIX]);
+      await sendTransaction({
+        to: contractAddress,
+        data: fullData,
+      });
+      refetch();
+    } catch (error) {
+      console.error('Transaction failed:', error);
+    }
   };
 
   return (
