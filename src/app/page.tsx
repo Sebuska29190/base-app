@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { useAccount, useConnect, useDisconnect, useSendCalls, useReadContract, useWriteContract, useSendTransaction } from 'wagmi';
-import { encodeFunctionData, concatHex } from 'viem';
+import { useAccount, useConnect, useDisconnect, useSendCalls, useReadContract, useWriteContract } from 'wagmi';
+import { encodeFunctionData } from 'viem';
 import { Attribution } from 'ox/erc8021';
 
 const DATA_SUFFIX = Attribution.toDataSuffix({
@@ -84,7 +84,7 @@ export default function Page() {
   ];
 
   const { writeContract } = useWriteContract();
-  const { sendTransaction } = useSendTransaction();
+  const { sendCalls } = useSendCalls();
   const { data: contractStreak, refetch } = useReadContract({
     address: contractAddress,
     abi,
@@ -98,10 +98,19 @@ export default function Page() {
         abi,
         functionName: 'sayGM',
       });
-      const fullData = concatHex([data, DATA_SUFFIX]);
-      await sendTransaction({
-        to: contractAddress,
-        data: fullData,
+      await sendCalls({
+        calls: [
+          {
+            to: contractAddress,
+            data: data,
+          },
+        ],
+        capabilities: {
+          dataSuffix: {
+            value: DATA_SUFFIX,
+            optional: true,
+          },
+        },
       });
       refetch();
     } catch (error) {
