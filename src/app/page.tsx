@@ -73,10 +73,10 @@ export default function Page() {
         <div className="flex flex-col items-center">
           <p className="text-lg mb-4">Please connect your wallet to continue.</p>
           <button
-            onClick={async () => {
+            onClick={() => {
               const connector = connectors.find(c => c.name === 'WalletConnect') || connectors[0];
               if (connector) {
-                await connect({ connector });
+                connect({ connector });
               }
             }}
             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
