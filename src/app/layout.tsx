@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { WagmiProvider } from 'wagmi/react';
+import { WagmiProvider } from 'wagmi';
 import { config } from '../lib/wagmi';
 import './globals.css';
 
