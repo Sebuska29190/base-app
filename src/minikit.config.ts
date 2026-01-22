@@ -11,6 +11,7 @@ export const minikitConfig = {
     name: "GM Onchain",
     subtitle: "Daily Good Morning Rewards",
     description: "Post 'Good Morning' onchain, track your streak, and earn rewards on Base!",
+    imageUrl: `${ROOT_URL}/gm-hero.png`,
     screenshotUrls: [
       `${ROOT_URL}/screenshot-portrait.png`
     ],
