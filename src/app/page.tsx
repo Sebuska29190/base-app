@@ -13,18 +13,68 @@ export default function Page() {
 
   const abi = [
     {
-      name: 'sayGM',
-      type: 'function',
-      stateMutability: 'nonpayable',
       inputs: [],
+      name: 'sayGM',
       outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function',
     },
     {
+      inputs: [
+        {
+          internalType: 'address',
+          name: 'user',
+          type: 'address',
+        },
+      ],
       name: 'getStreak',
-      type: 'function',
+      outputs: [
+        {
+          internalType: 'uint256',
+          name: '',
+          type: 'uint256',
+        },
+      ],
       stateMutability: 'view',
-      inputs: [{ type: 'address', name: 'user' }],
-      outputs: [{ type: 'uint256' }],
+      type: 'function',
+    },
+    {
+      inputs: [
+        {
+          internalType: 'address',
+          name: '',
+          type: 'address',
+        },
+      ],
+      name: 'lastGM',
+      outputs: [
+        {
+          internalType: 'uint256',
+          name: '',
+          type: 'uint256',
+        },
+      ],
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      inputs: [
+        {
+          internalType: 'address',
+          name: '',
+          type: 'address',
+        },
+      ],
+      name: 'streaks',
+      outputs: [
+        {
+          internalType: 'uint256',
+          name: '',
+          type: 'uint256',
+        },
+      ],
+      stateMutability: 'view',
+      type: 'function',
     },
   ];
 
