@@ -9,7 +9,7 @@ export default function Page() {
   const { connectors, connect } = useConnect();
   const { disconnect } = useDisconnect();
 
-  const contractAddress = '0x0000000000000000000000000000000000000000'; // Placeholder: replace with deployed contract address
+  const contractAddress = '0x85349056F46adD805632602b558B4809222A3A1a'; // Placeholder: replace with deployed contract address
 
   const abi = [
     {
