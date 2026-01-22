@@ -5,37 +5,34 @@ function withValidProperties(properties: Record<string, undefined | string | str
 }
 
 export async function GET() {
-  const URL = process.env.NEXT_PUBLIC_URL || 'https://gm-on-base.vercel.app'; // placeholder, assume deployed on vercel
+  const URL = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://gm-onchain-miniapp.vercel.app'; // Update with actual Vercel URL
 
   return Response.json({
     accountAssociation: {
-      header: '',
-      payload: '',
-      signature: ''
+      header: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9', // Placeholder: replace with actual header from Base tool
+      payload: 'eyJkb21haW4iOiJnbS1vbmNoYWluLW1pbmlhcHAudmVyY2VsLmFwcCIsImlzcyI6ImRpZDpldGhyOjB4MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwIiwic3ViIjoiZGlkOmV0aHI6MHgyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5IiwiYXVkIjoiZGlkOmV0aHI6MHhhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmMDEyMzQ1Njc4OWFiY2QiLCJleHAiOjE3MjUwMDAwMDAsImlhdCI6MTcyNDkwMDAwMCwibmJmIjoxNzI0OTAwMDAwfQ', // Placeholder: replace with actual payload
+      signature: 'signature_here' // Placeholder: replace with actual signature
     },
     miniapp: {
       version: '1',
-      name: 'Gm on Base',
+      name: 'GM Onchain',
       homeUrl: URL,
-      iconUrl: `${URL}/icon.png`,
-      splashImageUrl: `${URL}/splash.png`,
-      splashBackgroundColor: '#ffffff',
+      iconUrl: `${URL}/gm-icon.png`,
+      splashImageUrl: `${URL}/gm-splash.png`,
+      splashBackgroundColor: '#0000FF',
       webhookUrl: `${URL}/api/webhook`,
-      subtitle: 'Daily Gm streaks on Base',
-      description: 'Say Gm on the Base blockchain and maintain your daily greeting streak.',
+      subtitle: 'Daily Good Morning Rewards',
+      description: 'Post "Good Morning" onchain, track your streak, and earn rewards on Base!',
       screenshotUrls: [
-        `${URL}/screenshot1.png`,
-        `${URL}/screenshot2.png`,
-        `${URL}/screenshot3.png`
+        `${URL}/screenshot-portrait.png`
       ],
       primaryCategory: 'social',
-      tags: ['gm', 'base', 'streak', 'daily', 'blockchain'],
-      heroImageUrl: `${URL}/hero.png`,
-      tagline: 'Gm every day on Base',
-      ogTitle: 'Gm on Base',
-      ogDescription: 'Maintain your daily Gm streak on the Base blockchain.',
-      ogImageUrl: `${URL}/og.png`,
-      noindex: true
+      tags: ['gm', 'onchain', 'rewards', 'daily', 'base'],
+      heroImageUrl: `${URL}/gm-hero.png`,
+      tagline: 'Say GM and earn onchain!',
+      ogTitle: 'GM Onchain Mini App',
+      ogDescription: 'Daily rewards for your GM posts on Base.',
+      ogImageUrl: `${URL}/gm-hero.png`
     }
   });
 }
