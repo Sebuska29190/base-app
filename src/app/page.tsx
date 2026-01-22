@@ -36,14 +36,13 @@ export default function Page() {
     args: address ? [address] : undefined,
   });
 
-  const handleSayGM = () => {
-    writeContract({
+  const handleSayGM = async () => {
+    await writeContract({
       address: contractAddress,
       abi,
       functionName: 'sayGM',
-    }, {
-      onSuccess: () => refetch(),
     });
+    refetch();
   };
 
   return (
@@ -60,7 +59,7 @@ export default function Page() {
           </button>
           <p className="text-xl">Current Streak: {contractStreak ? contractStreak.toString() : '0'}</p>
           <button
-            onClick={() => disconnect()}
+            onClick={async () => disconnect()}
             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4"
           >
             Disconnect Wallet
@@ -70,12 +69,10 @@ export default function Page() {
         <div className="flex flex-col items-center">
           <p className="text-lg mb-4">Please connect your wallet to continue.</p>
           <button
-            onClick={() => {
-              const walletConnectConnector = connectors.find(c => c.name.toLowerCase().includes('walletconnect'));
-              if (walletConnectConnector) {
-                connect({ connector: walletConnectConnector });
-              } else if (connectors.length > 0) {
-                connect({ connector: connectors[0] });
+            onClick={async () => {
+              const connector = connectors.find(c => c.name === 'WalletConnect') || connectors[0];
+              if (connector) {
+                await connect({ connector });
               }
             }}
             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
