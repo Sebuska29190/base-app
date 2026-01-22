@@ -6,7 +6,7 @@ import { encodeFunctionData, concatHex } from 'viem';
 import { Attribution } from 'ox/erc8021';
 
 const DATA_SUFFIX = Attribution.toDataSuffix({
-  codes: ["YOUR-BUILDER-CODE"], // obtained from base.dev > Settings > Builder Codes
+  codes: ["bc_2d1r32ln"], // obtained from base.dev > Settings > Builder Codes
 });
 
 export default function Page() {
