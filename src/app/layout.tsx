@@ -17,6 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="base:app_id" content="69546c524d3a403912ed86d9" />
+        <script src="https://build.onchainkit.xyz/kit.js"></script>
       </head>
       <body className="bg-gray-100 flex items-center justify-center min-h-screen">
         <QueryClientProvider client={queryClient}>
