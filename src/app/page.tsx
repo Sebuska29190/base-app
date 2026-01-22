@@ -69,15 +69,19 @@ export default function Page() {
       ) : (
         <div className="flex flex-col items-center">
           <p className="text-lg mb-4">Please connect your wallet to continue.</p>
-          {connectors.map((connector) => (
-            <button
-              key={connector.uid}
-              onClick={() => connect({ connector })}
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-2"
-            >
-              Connect {connector.name}
-            </button>
-          ))}
+          <button
+            onClick={() => {
+              const walletConnectConnector = connectors.find(c => c.name.toLowerCase().includes('walletconnect'));
+              if (walletConnectConnector) {
+                connect({ connector: walletConnectConnector });
+              } else if (connectors.length > 0) {
+                connect({ connector: connectors[0] });
+              }
+            }}
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Connect Wallet
+          </button>
         </div>
       )}
     </div>
