@@ -74,9 +74,14 @@ export default function Page() {
           <p className="text-lg mb-4">Please connect your wallet to continue.</p>
           <button
             onClick={() => {
-              const connector = connectors.find(c => c.name === 'WalletConnect') || connectors[0];
-              if (connector) {
-                connect({ connector });
+              const injectedConnector = connectors.find(c => c.id === 'injected');
+              const walletConnectConnector = connectors.find(c => c.name === 'WalletConnect');
+              if (injectedConnector) {
+                connect({ connector: injectedConnector });
+              } else if (walletConnectConnector) {
+                connect({ connector: walletConnectConnector });
+              } else if (connectors.length > 0) {
+                connect({ connector: connectors[0] });
               }
             }}
             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
