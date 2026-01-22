@@ -1,12 +1,13 @@
 'use client';
 
 import React from 'react';
-import { useAccount, useConnect, useWriteContract, useReadContract } from 'wagmi';
+import { useAccount, useConnect, useDisconnect, useWriteContract, useReadContract } from 'wagmi';
 import { createPublicClient, http } from 'viem';
 
 export default function Page() {
   const { isConnected, address } = useAccount();
   const { connectors, connect } = useConnect();
+  const { disconnect } = useDisconnect();
 
   const contractAddress = '0x0000000000000000000000000000000000000000'; // Placeholder: replace with deployed contract address
 
@@ -58,6 +59,12 @@ export default function Page() {
             Say GM Onchain!
           </button>
           <p className="text-xl">Current Streak: {contractStreak ? contractStreak.toString() : '0'}</p>
+          <button
+            onClick={() => disconnect()}
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4"
+          >
+            Disconnect Wallet
+          </button>
         </>
       ) : (
         <div className="flex flex-col items-center">
