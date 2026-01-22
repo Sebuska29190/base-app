@@ -1,9 +1,12 @@
 'use client';
 
 import React from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WagmiProvider } from 'wagmi';
 import { config } from '../lib/wagmi';
 import './globals.css';
+
+const queryClient = new QueryClient();
 
 export default function RootLayout({
   children,
@@ -13,9 +16,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-gray-100 flex items-center justify-center min-h-screen">
-        <WagmiProvider config={config}>
-          {children}
-        </WagmiProvider>
+        <QueryClientProvider client={queryClient}>
+          <WagmiProvider config={config}>
+            {children}
+          </WagmiProvider>
+        </QueryClientProvider>
       </body>
     </html>
   );
