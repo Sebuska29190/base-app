@@ -36,16 +36,14 @@ export default function Page() {
     args: address ? [address] : undefined,
   });
 
-  const handleSayGM = async () => {
-    // Simulate GM post until contract is deployed
-    alert('Good Morning posted! Streak increased.');
-    // TODO: Replace with actual contract call once deployed
-    // await writeContract({
-    //   address: contractAddress,
-    //   abi,
-    //   functionName: 'sayGM',
-    // });
-    // refetch();
+  const handleSayGM = () => {
+    writeContract({
+      address: contractAddress,
+      abi,
+      functionName: 'sayGM',
+    }, {
+      onSuccess: () => refetch(),
+    });
   };
 
   return (
