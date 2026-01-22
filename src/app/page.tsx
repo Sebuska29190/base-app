@@ -1,11 +1,12 @@
 'use client';
 
 import React from 'react';
-import { useAccount, useWriteContract, useReadContract } from 'wagmi';
+import { useAccount, useConnect, useWriteContract, useReadContract } from 'wagmi';
 import { createPublicClient, http } from 'viem';
 
 export default function Page() {
   const { isConnected, address } = useAccount();
+  const { connectors, connect } = useConnect();
 
   const contractAddress = '0x0000000000000000000000000000000000000000'; // Placeholder: replace with deployed contract address
 
@@ -59,7 +60,18 @@ export default function Page() {
           <p className="text-xl">Current Streak: {contractStreak ? contractStreak.toString() : '0'}</p>
         </>
       ) : (
-        <p className="text-lg">Please connect your wallet to continue.</p>
+        <div className="flex flex-col items-center">
+          <p className="text-lg mb-4">Please connect your wallet to continue.</p>
+          {connectors.map((connector) => (
+            <button
+              key={connector.uid}
+              onClick={() => connect({ connector })}
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-2"
+            >
+              Connect {connector.name}
+            </button>
+          ))}
+        </div>
       )}
     </div>
   );
