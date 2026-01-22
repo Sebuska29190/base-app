@@ -37,12 +37,15 @@ export default function Page() {
   });
 
   const handleSayGM = async () => {
-    await writeContract({
-      address: contractAddress,
-      abi,
-      functionName: 'sayGM',
-    });
-    refetch();
+    // Simulate GM post until contract is deployed
+    alert('Good Morning posted! Streak increased.');
+    // TODO: Replace with actual contract call once deployed
+    // await writeContract({
+    //   address: contractAddress,
+    //   abi,
+    //   functionName: 'sayGM',
+    // });
+    // refetch();
   };
 
   return (
@@ -59,7 +62,10 @@ export default function Page() {
           </button>
           <p className="text-xl">Current Streak: {contractStreak ? contractStreak.toString() : '0'}</p>
           <button
-            onClick={async () => disconnect()}
+            onClick={async () => {
+              disconnect();
+              window.location.reload(); // Force reload to clear cache
+            }}
             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4"
           >
             Disconnect Wallet
